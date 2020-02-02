@@ -6,6 +6,7 @@ pattern = "*.srt"
 conteudo = ''
 numMinimoRepeticoes=0
 def contar_conteudo_e_remover_excesso(conteudo):
+    """This function get the words and convert her in one array [[word, weight], ....[word,weight]]"""
     palavras = []
     e=0
     boost =conteudo[0:int(len(conteudo)/50)]
@@ -37,6 +38,8 @@ def contar_conteudo_e_remover_excesso(conteudo):
     return palavras
 
 def filtrar_conteudo(conteudo):
+    """this function is the filter for the words, 
+    this function get the words and filter her"""
     conteudo = conteudo.split()
     d=0
     for x in range(0, len(conteudo)):
@@ -56,9 +59,11 @@ def filtrar_conteudo(conteudo):
     return conteudo,tamanho
 
 def ordenar_conteudo(conteudo):
+    """this function only realize one sort of the words basead in the weight"""
     conteudo.sort(key=lambda x: x[1], reverse=True)
     return conteudo
 def arquivar(conteudo, lingua1, tamanho):
+    """archive the words in a file txt using a structure json"""
     porcentagem = 0
     with open(lingua1+'-pt.txt','w+', encoding="utf-8") as arq:
         arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
@@ -71,14 +76,12 @@ def arquivar(conteudo, lingua1, tamanho):
         arq.write('],"porcentagem":{}'.format(porcentagem)+'}')
         print('arquivo salvo como {}-pt.txt'.format(lingua1))
 
-
-
 for entry in listOfFiles:
     if fnmatch.fnmatch(entry, pattern):
         print(entry)
         subs = pysrt.open(entry, encoding='iso-8859-1')
         for x in subs:
-            conteudo = '{} {}'.format(conteudo, x.text) 
+            conteudo = '{} {}'.format(conteudo, x.text.lower()) 
 print('_____________________________________________________\n\n___________________________')
 print("filtrando conteudo")
 conteudo,tamanho = filtrar_conteudo(conteudo)
