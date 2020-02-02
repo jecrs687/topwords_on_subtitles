@@ -4,7 +4,7 @@ import os, fnmatch
 listOfFiles = os.listdir('.')
 pattern = "*.srt"
 conteudo = ''
-numMinimoRepeticoes=40
+numMinimoRepeticoes=0
 def contar_conteudo_e_remover_excesso(conteudo):
     palavras = []
     e=0
@@ -29,8 +29,8 @@ def contar_conteudo_e_remover_excesso(conteudo):
             if(conteudo[x]==conteudo[y-d]):
                 del(conteudo[y-d])
                 d+=1
-        if(len(conteudo)>0):
-            if(d>numMinimoRepeticoes):
+        if(len(conteudo)>x):
+            if(d>=numMinimoRepeticoes):
                 palavras.append((conteudo[x], d+1))
 
 
@@ -58,7 +58,18 @@ def filtrar_conteudo(conteudo):
 def ordenar_conteudo(conteudo):
     conteudo.sort(key=lambda x: x[1], reverse=True)
     return conteudo
-
+def arquivar(conteudo, lingua1, tamanho):
+    porcentagem = 0
+    with open(lingua1+'-pt.txt','w+', encoding="utf-8") as arq:
+        arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
+        arq.write("\n")
+        arq.write("\n")
+        for z in range(0, len(conteudo)):
+            arq.write('{"word":"'+conteudo[z][0]+'",repeted":{}'.format(conteudo[z][1])+',"porcent":{}'.format((conteudo[z][1]/tamanho)*100)+'},')
+            arq.write("\n")
+            porcentagem =porcentagem + ((conteudo[z][1]/tamanho)*100 )
+        arq.write('],"porcentagem":{}'.format(porcentagem)+'}')
+        print('arquivo salvo como {}-pt.txt'.format(lingua1))
 
 
 
@@ -75,4 +86,8 @@ print("contando conteudo e removendo excesso")
 conteudo = contar_conteudo_e_remover_excesso(conteudo)
 print("ordenando conteudo")
 conteudo = ordenar_conteudo(conteudo)
+print("arquivando")
+arquivar(conteudo, 'English', tamanho)
+print("\n\n\n\n")
 print(conteudo)
+print(len(conteudo))
