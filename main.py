@@ -6,7 +6,9 @@ pattern = "*.srt"
 conteudo = ''
 numMinimoRepeticoes=0
 def contar_conteudo_e_remover_excesso(conteudo):
-    """This function get the words and convert her in one array [[word, weight], ....[word,weight]]"""
+    """This function get the words and convert her in one array [[word, weight], ....[word,weight]]
+    \n [return: array]
+    """
     palavras = []
     e=0
     boost =conteudo[0:int(len(conteudo)/50)]
@@ -39,7 +41,8 @@ def contar_conteudo_e_remover_excesso(conteudo):
 
 def filtrar_conteudo(conteudo):
     """this function is the filter for the words, 
-    this function get the words and filter her"""
+    this function get the words and filter her
+    \n [return: string, int]"""
     conteudo = conteudo.split()
     d=0
     for x in range(0, len(conteudo)):
@@ -59,11 +62,14 @@ def filtrar_conteudo(conteudo):
     return conteudo,tamanho
 
 def ordenar_conteudo(conteudo):
-    """this function only realize one sort of the words basead in the weight"""
+    """this function only realize one sort of the words basead in the weight
+    \n [return array]
+    """
     conteudo.sort(key=lambda x: x[1], reverse=True)
     return conteudo
 def arquivar(conteudo, lingua1, tamanho):
-    """archive the words in a file txt using a structure json"""
+    """archive the words in a file txt using a structure json
+    \n [return null]"""
     porcentagem = 0
     with open(lingua1+'-pt.txt','w+', encoding="utf-8") as arq:
         arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
