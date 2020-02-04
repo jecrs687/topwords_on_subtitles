@@ -73,8 +73,11 @@ for entry in listOfFiles:
     if fnmatch.fnmatch(entry, pattern):
         print(entry)
         subs = pysrt.open(entry, encoding='iso-8859-1')
+        words = ''
         for x in subs:
-            conteudo = '{} {}'.format(conteudo, x.text.lower()) 
+            words = '{} {}'.format(words, x.text.lower()) 
+        conteudo = '{} {}'.format(conteudo,words)
+        del(words)
 print('_____________________________________________________\n\n___________________________')
 print("filtrando conteudo")
 conteudo,tamanho = filtrar_conteudo(conteudo)
