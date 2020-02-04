@@ -58,7 +58,7 @@ def arquivar(conteudo, lingua1, tamanho):
     """archive the words in a file txt using a structure json
     \n [return null]"""
     porcentagem = 0
-    with open(lingua1+'-pt.json','w+', encoding="utf-8") as arq:
+    with open(lingua1+'.json','w+', encoding="utf-8") as arq:
         arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
         arq.write("\n")
         arq.write("\n")
@@ -87,7 +87,7 @@ conteudo = contar_conteudo_e_remover_excesso(conteudo)
 print("ordenando conteudo")
 conteudo = ordenar_conteudo(conteudo)
 print("arquivando")
-arquivar(conteudo, 'English', tamanho)
+arquivar(conteudo, '__The_most_common_words_in_english', tamanho)
 print("\n\n\n\n")
 print(conteudo)
 print(len(conteudo))
